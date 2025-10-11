@@ -6,10 +6,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/saludo', function () {
-    return 'Hola a todos';
-});
-
+// Rutas corregidas
 Route::get('/bienvenidos', function () {
     return view('bienvenidos');
+});
+
+Route::get('/saludos', function () {
+    return view('saludos');
+});
+
+Route::get('/estudiantes', function () {
+    return view('estudiantes');
+});
+
+Route::get('/proveedor', function () {
+    return view('proveedor');
 });

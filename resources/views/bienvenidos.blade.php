@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestión</title>
+    <title>Bienvenidos - Sistema de Gestión</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -266,11 +266,11 @@
             <div class="header-content">
                 <div class="logo">Sistema de Gestión</div>
                 <ul class="main-menu">
-                    <li><a href="#" class="menu-link active" data-section="welcome">Inicio</a></li>
-                    <li><a href="#" class="menu-link" data-section="saludos">Saludos</a></li>
-                    <li><a href="#" class="menu-link" data-section="bienvenidos">Bienvenidos</a></li>
-                    <li><a href="#" class="menu-link" data-section="estudiantes">Estudiantes</a></li>
-                    <li><a href="#" class="menu-link" data-section="proveedor">Proveedor</a></li>
+                    <li><a href="/" class="menu-link">Inicio</a></li>
+                    <li><a href="/bienvenidos" class="menu-link active">Bienvenidos</a></li>
+                    <li><a href="/saludos" class="menu-link">Saludos</a></li>
+                    <li><a href="/estudiantes" class="menu-link">Estudiantes</a></li>
+                    <li><a href="/proveedor" class="menu-link">Proveedor</a></li>
                 </ul>
             </div>
         </div>
@@ -309,216 +309,12 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- Sección de Saludos -->
-            <section id="saludos" class="content-section">
-                <h2 class="section-title">Gestión de Saludos</h2>
-                
-                <div class="card">
-                    <h3>Agregar Nuevo Saludo</h3>
-                    <form id="saludo-form">
-                        <div class="form-group">
-                            <label for="tipo-saludo">Tipo de Saludo</label>
-                            <select id="tipo-saludo" required>
-                                <option value="">Seleccione un tipo</option>
-                                <option value="formal">Formal</option>
-                                <option value="informal">Informal</option>
-                                <option value="profesional">Profesional</option>
-                                <option value="personalizado">Personalizado</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="mensaje-saludo">Mensaje de Saludo</label>
-                            <textarea id="mensaje-saludo" rows="4" required placeholder="Escriba el mensaje de saludo aquí"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="idioma-saludo">Idioma</label>
-                            <input type="text" id="idioma-saludo" required placeholder="Ej: Español, Inglés, etc.">
-                        </div>
-                        
-                        <button type="submit" class="btn-success">Guardar Saludo</button>
-                    </form>
-                </div>
-                
-                <div class="card">
-                    <h3>Saludos Guardados</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tipo</th>
-                                <th>Mensaje</th>
-                                <th>Idioma</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="saludos-list">
-                            <!-- Los datos se cargarán dinámicamente -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            
-            <!-- Sección de Bienvenidos -->
-            <section id="bienvenidos" class="content-section">
-                <h2 class="section-title">Mensajes de Bienvenida</h2>
-                
-                <div class="card">
-                    <h3>Crear Mensaje de Bienvenida</h3>
-                    <form id="bienvenido-form">
-                        <div class="form-group">
-                            <label for="titulo-bienvenida">Título</label>
-                            <input type="text" id="titulo-bienvenida" required placeholder="Título del mensaje">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="mensaje-bienvenida">Mensaje</label>
-                            <textarea id="mensaje-bienvenida" rows="5" required placeholder="Escriba el mensaje de bienvenida aquí"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="destinatario-bienvenida">Destinatario</label>
-                            <input type="text" id="destinatario-bienvenida" required placeholder="A quién va dirigido">
-                        </div>
-                        
-                        <button type="submit" class="btn-success">Guardar Bienvenida</button>
-                    </form>
-                </div>
-                
-                <div class="card">
-                    <h3>Mensajes de Bienvenida Guardados</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Mensaje</th>
-                                <th>Destinatario</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bienvenidos-list">
-                            <!-- Los datos se cargarán dinámicamente -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            
-            <!-- Sección de Estudiantes -->
-            <section id="estudiantes" class="content-section">
-                <h2 class="section-title">Gestión de Estudiantes</h2>
-                
-                <div class="card">
-                    <h3>Registrar Estudiante</h3>
-                    <form id="estudiante-form">
-                        <div class="form-group">
-                            <label for="nombre-estudiante">Nombre Completo</label>
-                            <input type="text" id="nombre-estudiante" required placeholder="Nombre del estudiante">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="edad-estudiante">Edad</label>
-                            <input type="number" id="edad-estudiante" required min="5" max="100" placeholder="Edad">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="carrera-estudiante">Carrera</label>
-                            <input type="text" id="carrera-estudiante" required placeholder="Carrera que estudia">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email-estudiante">Email</label>
-                            <input type="email" id="email-estudiante" required placeholder="Correo electrónico">
-                        </div>
-                        
-                        <button type="submit" class="btn-success">Registrar Estudiante</button>
-                    </form>
-                </div>
-                
-                <div class="card">
-                    <h3>Estudiantes Registrados</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Edad</th>
-                                <th>Carrera</th>
-                                <th>Email</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="estudiantes-list">
-                            <!-- Los datos se cargarán dinámicamente -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            
-            <!-- Sección de Proveedor -->
-            <section id="proveedor" class="content-section">
-                <h2 class="section-title">Gestión de Proveedores</h2>
-                
-                <div class="card">
-                    <h3>Registrar Proveedor</h3>
-                    <form id="proveedor-form">
-                        <div class="form-group">
-                            <label for="nombre-proveedor">Nombre de la Empresa</label>
-                            <input type="text" id="nombre-proveedor" required placeholder="Nombre de la empresa proveedora">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contacto-proveedor">Persona de Contacto</label>
-                            <input type="text" id="contacto-proveedor" required placeholder="Nombre del contacto">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="telefono-proveedor">Teléfono</label>
-                            <input type="tel" id="telefono-proveedor" required placeholder="Número de teléfono">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email-proveedor">Email</label>
-                            <input type="email" id="email-proveedor" required placeholder="Correo electrónico">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="producto-proveedor">Producto/Servicio</label>
-                            <input type="text" id="producto-proveedor" required placeholder="Producto o servicio que ofrece">
-                        </div>
-                        
-                        <button type="submit" class="btn-success">Registrar Proveedor</button>
-                    </form>
-                </div>
-                
-                <div class="card">
-                    <h3>Proveedores Registrados</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Empresa</th>
-                                <th>Contacto</th>
-                                <th>Teléfono</th>
-                                <th>Email</th>
-                                <th>Producto/Servicio</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="proveedores-list">
-                            <!-- Los datos se cargarán dinámicamente -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
         </div>
     </main>
     
     <footer>
         <div class="container">
-            <p>Sistema de Gestión &copy; 2023 - Desarrollado con Laragon y Visual Studio Code</p>
+            <p>Sistema de Gestión &copy; 2023 - Desarrollado con Laravel y Laragon</p>
         </div>
     </footer>
 
@@ -536,18 +332,13 @@
                 // Agregar clase activa al enlace clickeado
                 this.classList.add('active');
                 
-                // Ocultar todas las secciones
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // Mostrar la sección correspondiente
-                const sectionId = this.getAttribute('data-section');
-                document.getElementById(sectionId).classList.add('active');
+                // Redirigir a la página correspondiente
+                const href = this.getAttribute('href');
+                window.location.href = href;
             });
         });
 
-        // Simulación de base de datos (en un caso real, esto se conectaría a un backend)
+        // Simulación de base de datos (en un caso real, esto se conectaría a un backend Laravel)
         let saludos = JSON.parse(localStorage.getItem('saludos')) || [];
         let bienvenidos = JSON.parse(localStorage.getItem('bienvenidos')) || [];
         let estudiantes = JSON.parse(localStorage.getItem('estudiantes')) || [];
@@ -567,30 +358,34 @@
         }
 
         // Funcionalidad para Saludos
-        document.getElementById('saludo-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const tipo = document.getElementById('tipo-saludo').value;
-            const mensaje = document.getElementById('mensaje-saludo').value;
-            const idioma = document.getElementById('idioma-saludo').value;
-            
-            const nuevoSaludo = {
-                id: Date.now(),
-                tipo: tipo,
-                mensaje: mensaje,
-                idioma: idioma
-            };
-            
-            saludos.push(nuevoSaludo);
-            localStorage.setItem('saludos', JSON.stringify(saludos));
-            
-            document.getElementById('saludo-form').reset();
-            showAlert('Saludo guardado correctamente', 'success');
-            renderSaludos();
-        });
+        if(document.getElementById('saludo-form')) {
+            document.getElementById('saludo-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const tipo = document.getElementById('tipo-saludo').value;
+                const mensaje = document.getElementById('mensaje-saludo').value;
+                const idioma = document.getElementById('idioma-saludo').value;
+                
+                const nuevoSaludo = {
+                    id: Date.now(),
+                    tipo: tipo,
+                    mensaje: mensaje,
+                    idioma: idioma
+                };
+                
+                saludos.push(nuevoSaludo);
+                localStorage.setItem('saludos', JSON.stringify(saludos));
+                
+                document.getElementById('saludo-form').reset();
+                showAlert('Saludo guardado correctamente', 'success');
+                if(typeof renderSaludos === 'function') renderSaludos();
+            });
+        }
 
         function renderSaludos() {
             const tbody = document.getElementById('saludos-list');
+            if(!tbody) return;
+            
             tbody.innerHTML = '';
             
             saludos.forEach(saludo => {
@@ -621,30 +416,34 @@
         }
 
         // Funcionalidad para Bienvenidos
-        document.getElementById('bienvenido-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const titulo = document.getElementById('titulo-bienvenida').value;
-            const mensaje = document.getElementById('mensaje-bienvenida').value;
-            const destinatario = document.getElementById('destinatario-bienvenida').value;
-            
-            const nuevoBienvenido = {
-                id: Date.now(),
-                titulo: titulo,
-                mensaje: mensaje,
-                destinatario: destinatario
-            };
-            
-            bienvenidos.push(nuevoBienvenido);
-            localStorage.setItem('bienvenidos', JSON.stringify(bienvenidos));
-            
-            document.getElementById('bienvenido-form').reset();
-            showAlert('Mensaje de bienvenida guardado correctamente', 'success');
-            renderBienvenidos();
-        });
+        if(document.getElementById('bienvenido-form')) {
+            document.getElementById('bienvenido-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const titulo = document.getElementById('titulo-bienvenida').value;
+                const mensaje = document.getElementById('mensaje-bienvenida').value;
+                const destinatario = document.getElementById('destinatario-bienvenida').value;
+                
+                const nuevoBienvenido = {
+                    id: Date.now(),
+                    titulo: titulo,
+                    mensaje: mensaje,
+                    destinatario: destinatario
+                };
+                
+                bienvenidos.push(nuevoBienvenido);
+                localStorage.setItem('bienvenidos', JSON.stringify(bienvenidos));
+                
+                document.getElementById('bienvenido-form').reset();
+                showAlert('Mensaje de bienvenida guardado correctamente', 'success');
+                if(typeof renderBienvenidos === 'function') renderBienvenidos();
+            });
+        }
 
         function renderBienvenidos() {
             const tbody = document.getElementById('bienvenidos-list');
+            if(!tbody) return;
+            
             tbody.innerHTML = '';
             
             bienvenidos.forEach(bienvenido => {
@@ -675,32 +474,36 @@
         }
 
         // Funcionalidad para Estudiantes
-        document.getElementById('estudiante-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nombre = document.getElementById('nombre-estudiante').value;
-            const edad = document.getElementById('edad-estudiante').value;
-            const carrera = document.getElementById('carrera-estudiante').value;
-            const email = document.getElementById('email-estudiante').value;
-            
-            const nuevoEstudiante = {
-                id: Date.now(),
-                nombre: nombre,
-                edad: edad,
-                carrera: carrera,
-                email: email
-            };
-            
-            estudiantes.push(nuevoEstudiante);
-            localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
-            
-            document.getElementById('estudiante-form').reset();
-            showAlert('Estudiante registrado correctamente', 'success');
-            renderEstudiantes();
-        });
+        if(document.getElementById('estudiante-form')) {
+            document.getElementById('estudiante-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nombre = document.getElementById('nombre-estudiante').value;
+                const edad = document.getElementById('edad-estudiante').value;
+                const carrera = document.getElementById('carrera-estudiante').value;
+                const email = document.getElementById('email-estudiante').value;
+                
+                const nuevoEstudiante = {
+                    id: Date.now(),
+                    nombre: nombre,
+                    edad: edad,
+                    carrera: carrera,
+                    email: email
+                };
+                
+                estudiantes.push(nuevoEstudiante);
+                localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
+                
+                document.getElementById('estudiante-form').reset();
+                showAlert('Estudiante registrado correctamente', 'success');
+                if(typeof renderEstudiantes === 'function') renderEstudiantes();
+            });
+        }
 
         function renderEstudiantes() {
             const tbody = document.getElementById('estudiantes-list');
+            if(!tbody) return;
+            
             tbody.innerHTML = '';
             
             estudiantes.forEach(estudiante => {
@@ -732,34 +535,38 @@
         }
 
         // Funcionalidad para Proveedores
-        document.getElementById('proveedor-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nombre = document.getElementById('nombre-proveedor').value;
-            const contacto = document.getElementById('contacto-proveedor').value;
-            const telefono = document.getElementById('telefono-proveedor').value;
-            const email = document.getElementById('email-proveedor').value;
-            const producto = document.getElementById('producto-proveedor').value;
-            
-            const nuevoProveedor = {
-                id: Date.now(),
-                nombre: nombre,
-                contacto: contacto,
-                telefono: telefono,
-                email: email,
-                producto: producto
-            };
-            
-            proveedores.push(nuevoProveedor);
-            localStorage.setItem('proveedores', JSON.stringify(proveedores));
-            
-            document.getElementById('proveedor-form').reset();
-            showAlert('Proveedor registrado correctamente', 'success');
-            renderProveedores();
-        });
+        if(document.getElementById('proveedor-form')) {
+            document.getElementById('proveedor-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nombre = document.getElementById('nombre-proveedor').value;
+                const contacto = document.getElementById('contacto-proveedor').value;
+                const telefono = document.getElementById('telefono-proveedor').value;
+                const email = document.getElementById('email-proveedor').value;
+                const producto = document.getElementById('producto-proveedor').value;
+                
+                const nuevoProveedor = {
+                    id: Date.now(),
+                    nombre: nombre,
+                    contacto: contacto,
+                    telefono: telefono,
+                    email: email,
+                    producto: producto
+                };
+                
+                proveedores.push(nuevoProveedor);
+                localStorage.setItem('proveedores', JSON.stringify(proveedores));
+                
+                document.getElementById('proveedor-form').reset();
+                showAlert('Proveedor registrado correctamente', 'success');
+                if(typeof renderProveedores === 'function') renderProveedores();
+            });
+        }
 
         function renderProveedores() {
             const tbody = document.getElementById('proveedores-list');
+            if(!tbody) return;
+            
             tbody.innerHTML = '';
             
             proveedores.forEach(proveedor => {
@@ -793,10 +600,11 @@
 
         // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function() {
-            renderSaludos();
-            renderBienvenidos();
-            renderEstudiantes();
-            renderProveedores();
+            // Solo ejecutar las funciones si los elementos existen en la página actual
+            if(document.getElementById('saludos-list')) renderSaludos();
+            if(document.getElementById('bienvenidos-list')) renderBienvenidos();
+            if(document.getElementById('estudiantes-list')) renderEstudiantes();
+            if(document.getElementById('proveedores-list')) renderProveedores();
         });
     </script>
 </body>
