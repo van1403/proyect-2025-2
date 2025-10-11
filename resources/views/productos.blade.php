@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saludos - Sistema de Gestión</title>
+    <title>Gestión de Productos - Sistema de Inventarios</title>
     <style>
+        /* Mismo estilo que las otras vistas pero actualizado para productos */
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2980b9;
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
             --accent-color: #e74c3c;
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
-            --success-color: #2ecc71;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
@@ -131,11 +131,7 @@
         }
         
         .btn-success {
-            background-color: var(--success-color);
-        }
-        
-        .btn-success:hover {
-            background-color: #27ae60;
+            background-color: var(--primary-color);
         }
         
         .btn-danger {
@@ -180,12 +176,6 @@
             border-color: #c3e6cb;
         }
         
-        .alert-error {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        
         footer {
             background-color: var(--dark-color);
             color: white;
@@ -209,10 +199,6 @@
             .main-menu li {
                 margin: 0.5rem;
             }
-            
-            .data-table {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -220,12 +206,13 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">Sistema de Gestión</div>
+                <div class="logo">📦 SistemaInventarios</div>
                 <ul class="main-menu">
                     <li><a href="/">Inicio</a></li>
                     <li><a href="/bienvenidos">Bienvenidos</a></li>
-                    <li><a href="/saludos" class="active">Saludos</a></li>
-                    <li><a href="/estudiantes">Estudiantes</a></li>
+                    <li><a href="/productos" class="active">Productos</a></li>
+                    <li><a href="/ventas">Ventas</a></li>
+                    <li><a href="/cliente">Cliente</a></li>
                     <li><a href="/proveedor">Proveedor</a></li>
                 </ul>
             </div>
@@ -234,49 +221,61 @@
     
     <main>
         <div class="container">
-            <h2 class="section-title">Gestión de Saludos</h2>
+            <h2 class="section-title">Gestión de Productos</h2>
             
             <div class="card">
-                <h3>Agregar Nuevo Saludo</h3>
-                <form id="saludo-form">
+                <h3>Agregar Nuevo Producto</h3>
+                <form id="producto-form">
                     <div class="form-group">
-                        <label for="tipo-saludo">Tipo de Saludo</label>
-                        <select id="tipo-saludo" required>
-                            <option value="">Seleccione un tipo</option>
-                            <option value="formal">Formal</option>
-                            <option value="informal">Informal</option>
-                            <option value="profesional">Profesional</option>
-                            <option value="personalizado">Personalizado</option>
+                        <label for="nombre-producto">Nombre del Producto</label>
+                        <input type="text" id="nombre-producto" required placeholder="Nombre del producto">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoria-producto">Categoría</label>
+                        <select id="categoria-producto" required>
+                            <option value="">Seleccione categoría</option>
+                            <option value="electronica">Electrónica</option>
+                            <option value="ropa">Ropa</option>
+                            <option value="hogar">Hogar</option>
+                            <option value="deportes">Deportes</option>
+                            <option value="otros">Otros</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="mensaje-saludo">Mensaje de Saludo</label>
-                        <textarea id="mensaje-saludo" rows="4" required placeholder="Escriba el mensaje de saludo aquí"></textarea>
+                        <label for="precio-producto">Precio</label>
+                        <input type="number" id="precio-producto" required min="0" step="0.01" placeholder="Precio del producto">
                     </div>
                     
                     <div class="form-group">
-                        <label for="idioma-saludo">Idioma</label>
-                        <input type="text" id="idioma-saludo" required placeholder="Ej: Español, Inglés, etc.">
+                        <label for="stock-producto">Stock</label>
+                        <input type="number" id="stock-producto" required min="0" placeholder="Cantidad en stock">
                     </div>
                     
-                    <button type="submit" class="btn-success">Guardar Saludo</button>
+                    <div class="form-group">
+                        <label for="descripcion-producto">Descripción</label>
+                        <textarea id="descripcion-producto" rows="3" placeholder="Descripción del producto"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-success">Guardar Producto</button>
                 </form>
             </div>
             
             <div class="card">
-                <h3>Saludos Guardados</h3>
+                <h3>Productos Registrados</h3>
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tipo</th>
-                            <th>Mensaje</th>
-                            <th>Idioma</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="saludos-list">
+                    <tbody id="productos-list">
                         <!-- Los datos se cargarán dinámicamente -->
                     </tbody>
                 </table>
@@ -286,13 +285,13 @@
     
     <footer>
         <div class="container">
-            <p>Sistema de Gestión &copy; 2023 - Desarrollado con Laravel y Laragon</p>
+            <p>Sistema de Inventarios &copy; 2023 - Gestión de Productos</p>
         </div>
     </footer>
 
     <script>
-        // Datos de saludos
-        let saludos = JSON.parse(localStorage.getItem('saludos')) || [];
+        // Datos de productos
+        let productos = JSON.parse(localStorage.getItem('productos')) || [];
 
         // Función para mostrar alertas
         function showAlert(message, type) {
@@ -307,48 +306,53 @@
             }, 5000);
         }
 
-        // Funcionalidad para Saludos
-        document.getElementById('saludo-form').addEventListener('submit', function(e) {
+        // Funcionalidad para Productos
+        document.getElementById('producto-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const tipo = document.getElementById('tipo-saludo').value;
-            const mensaje = document.getElementById('mensaje-saludo').value;
-            const idioma = document.getElementById('idioma-saludo').value;
+            const nombre = document.getElementById('nombre-producto').value;
+            const categoria = document.getElementById('categoria-producto').value;
+            const precio = parseFloat(document.getElementById('precio-producto').value);
+            const stock = parseInt(document.getElementById('stock-producto').value);
+            const descripcion = document.getElementById('descripcion-producto').value;
             
-            const nuevoSaludo = {
+            const nuevoProducto = {
                 id: Date.now(),
-                tipo: tipo,
-                mensaje: mensaje,
-                idioma: idioma,
-                fecha: new Date().toLocaleDateString()
+                nombre: nombre,
+                categoria: categoria,
+                precio: precio,
+                stock: stock,
+                descripcion: descripcion,
+                fechaRegistro: new Date().toLocaleDateString()
             };
             
-            saludos.push(nuevoSaludo);
-            localStorage.setItem('saludos', JSON.stringify(saludos));
+            productos.push(nuevoProducto);
+            localStorage.setItem('productos', JSON.stringify(productos));
             
-            document.getElementById('saludo-form').reset();
-            showAlert('Saludo guardado correctamente', 'success');
-            renderSaludos();
+            document.getElementById('producto-form').reset();
+            showAlert('Producto guardado correctamente', 'success');
+            renderProductos();
         });
 
-        function renderSaludos() {
-            const tbody = document.getElementById('saludos-list');
+        function renderProductos() {
+            const tbody = document.getElementById('productos-list');
             tbody.innerHTML = '';
             
-            if (saludos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No hay saludos guardados</td></tr>';
+            if (productos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay productos registrados</td></tr>';
                 return;
             }
             
-            saludos.forEach(saludo => {
+            productos.forEach(producto => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${saludo.id}</td>
-                    <td>${saludo.tipo}</td>
-                    <td>${saludo.mensaje}</td>
-                    <td>${saludo.idioma}</td>
+                    <td>${producto.id}</td>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.categoria}</td>
+                    <td>$${producto.precio.toFixed(2)}</td>
+                    <td>${producto.stock}</td>
                     <td>
-                        <button class="btn-danger btn-eliminar" data-id="${saludo.id}">Eliminar</button>
+                        <button class="btn-danger btn-eliminar" data-id="${producto.id}">Eliminar</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -358,17 +362,17 @@
             document.querySelectorAll('.btn-eliminar').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
-                    saludos = saludos.filter(saludo => saludo.id !== id);
-                    localStorage.setItem('saludos', JSON.stringify(saludos));
-                    renderSaludos();
-                    showAlert('Saludo eliminado correctamente', 'success');
+                    productos = productos.filter(producto => producto.id !== id);
+                    localStorage.setItem('productos', JSON.stringify(productos));
+                    renderProductos();
+                    showAlert('Producto eliminado correctamente', 'success');
                 });
             });
         }
 
         // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function() {
-            renderSaludos();
+            renderProductos();
         });
     </script>
 </body>

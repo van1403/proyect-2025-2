@@ -6,17 +6,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Rutas corregidas
 Route::get('/bienvenidos', function () {
     return view('bienvenidos');
 });
 
-Route::get('/saludos', function () {
-    return view('saludos');
+// Nuevas rutas
+Route::get('/productos', function () {
+    return view('productos');
 });
 
-Route::get('/estudiantes', function () {
-    return view('estudiantes');
+Route::get('/ventas', function () {
+    return view('ventas');
+});
+
+Route::get('/cliente', function () {
+    return view('cliente');
 });
 
 Route::get('/proveedor', function () {

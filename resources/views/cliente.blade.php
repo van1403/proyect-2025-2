@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudiantes - Sistema de Gestión</title>
+    <title>Gestión de Clientes - Sistema de Inventarios</title>
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2980b9;
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
             --accent-color: #e74c3c;
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
-            --success-color: #2ecc71;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
@@ -131,11 +130,7 @@
         }
         
         .btn-success {
-            background-color: var(--success-color);
-        }
-        
-        .btn-success:hover {
-            background-color: #27ae60;
+            background-color: var(--primary-color);
         }
         
         .btn-danger {
@@ -180,12 +175,6 @@
             border-color: #c3e6cb;
         }
         
-        .alert-error {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        
         footer {
             background-color: var(--dark-color);
             color: white;
@@ -209,10 +198,6 @@
             .main-menu li {
                 margin: 0.5rem;
             }
-            
-            .data-table {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -220,12 +205,13 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">Sistema de Gestión</div>
+                <div class="logo">👥 SistemaInventarios</div>
                 <ul class="main-menu">
                     <li><a href="/">Inicio</a></li>
                     <li><a href="/bienvenidos">Bienvenidos</a></li>
-                    <li><a href="/saludos">Saludos</a></li>
-                    <li><a href="/estudiantes" class="active">Estudiantes</a></li>
+                    <li><a href="/productos">Productos</a></li>
+                    <li><a href="/ventas">Ventas</a></li>
+                    <li><a href="/cliente" class="active">Cliente</a></li>
                     <li><a href="/proveedor">Proveedor</a></li>
                 </ul>
             </div>
@@ -234,55 +220,59 @@
     
     <main>
         <div class="container">
-            <h2 class="section-title">Gestión de Estudiantes</h2>
+            <h2 class="section-title">Gestión de Clientes</h2>
             
             <div class="card">
-                <h3>Registrar Estudiante</h3>
-                <form id="estudiante-form">
+                <h3>Registrar Nuevo Cliente</h3>
+                <form id="cliente-form">
                     <div class="form-group">
-                        <label for="nombre-estudiante">Nombre Completo</label>
-                        <input type="text" id="nombre-estudiante" required placeholder="Nombre del estudiante">
+                        <label for="nombre-cliente">Nombre Completo</label>
+                        <input type="text" id="nombre-cliente" required placeholder="Nombre del cliente">
                     </div>
                     
                     <div class="form-group">
-                        <label for="edad-estudiante">Edad</label>
-                        <input type="number" id="edad-estudiante" required min="5" max="100" placeholder="Edad">
+                        <label for="email-cliente">Email</label>
+                        <input type="email" id="email-cliente" required placeholder="Correo electrónico">
                     </div>
                     
                     <div class="form-group">
-                        <label for="carrera-estudiante">Carrera</label>
-                        <input type="text" id="carrera-estudiante" required placeholder="Carrera que estudia">
+                        <label for="telefono-cliente">Teléfono</label>
+                        <input type="tel" id="telefono-cliente" required placeholder="Número de teléfono">
                     </div>
                     
                     <div class="form-group">
-                        <label for="email-estudiante">Email</label>
-                        <input type="email" id="email-estudiante" required placeholder="Correo electrónico">
+                        <label for="direccion-cliente">Dirección</label>
+                        <textarea id="direccion-cliente" rows="3" placeholder="Dirección completa"></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <label for="telefono-estudiante">Teléfono</label>
-                        <input type="tel" id="telefono-estudiante" placeholder="Número de teléfono">
+                        <label for="tipo-cliente">Tipo de Cliente</label>
+                        <select id="tipo-cliente" required>
+                            <option value="">Seleccione tipo</option>
+                            <option value="regular">Regular</option>
+                            <option value="preferencial">Preferencial</option>
+                            <option value="corporativo">Corporativo</option>
+                        </select>
                     </div>
                     
-                    <button type="submit" class="btn-success">Registrar Estudiante</button>
+                    <button type="submit" class="btn-success">Registrar Cliente</button>
                 </form>
             </div>
             
             <div class="card">
-                <h3>Estudiantes Registrados</h3>
+                <h3>Clientes Registrados</h3>
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Edad</th>
-                            <th>Carrera</th>
                             <th>Email</th>
                             <th>Teléfono</th>
+                            <th>Tipo</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="estudiantes-list">
+                    <tbody id="clientes-list">
                         <!-- Los datos se cargarán dinámicamente -->
                     </tbody>
                 </table>
@@ -292,13 +282,13 @@
     
     <footer>
         <div class="container">
-            <p>Sistema de Gestión &copy; 2023 - Desarrollado con Laravel y Laragon</p>
+            <p>Sistema de Inventarios &copy; 2023 - Gestión de Clientes</p>
         </div>
     </footer>
 
     <script>
-        // Datos de estudiantes
-        let estudiantes = JSON.parse(localStorage.getItem('estudiantes')) || [];
+        // Datos de clientes
+        let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
 
         // Función para mostrar alertas
         function showAlert(message, type) {
@@ -313,54 +303,53 @@
             }, 5000);
         }
 
-        // Funcionalidad para Estudiantes
-        document.getElementById('estudiante-form').addEventListener('submit', function(e) {
+        // Funcionalidad para Clientes
+        document.getElementById('cliente-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const nombre = document.getElementById('nombre-estudiante').value;
-            const edad = document.getElementById('edad-estudiante').value;
-            const carrera = document.getElementById('carrera-estudiante').value;
-            const email = document.getElementById('email-estudiante').value;
-            const telefono = document.getElementById('telefono-estudiante').value;
+            const nombre = document.getElementById('nombre-cliente').value;
+            const email = document.getElementById('email-cliente').value;
+            const telefono = document.getElementById('telefono-cliente').value;
+            const direccion = document.getElementById('direccion-cliente').value;
+            const tipo = document.getElementById('tipo-cliente').value;
             
-            const nuevoEstudiante = {
+            const nuevoCliente = {
                 id: Date.now(),
                 nombre: nombre,
-                edad: edad,
-                carrera: carrera,
                 email: email,
                 telefono: telefono,
+                direccion: direccion,
+                tipo: tipo,
                 fechaRegistro: new Date().toLocaleDateString()
             };
             
-            estudiantes.push(nuevoEstudiante);
-            localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
+            clientes.push(nuevoCliente);
+            localStorage.setItem('clientes', JSON.stringify(clientes));
             
-            document.getElementById('estudiante-form').reset();
-            showAlert('Estudiante registrado correctamente', 'success');
-            renderEstudiantes();
+            document.getElementById('cliente-form').reset();
+            showAlert('Cliente registrado correctamente', 'success');
+            renderClientes();
         });
 
-        function renderEstudiantes() {
-            const tbody = document.getElementById('estudiantes-list');
+        function renderClientes() {
+            const tbody = document.getElementById('clientes-list');
             tbody.innerHTML = '';
             
-            if (estudiantes.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hay estudiantes registrados</td></tr>';
+            if (clientes.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No hay clientes registrados</td></tr>';
                 return;
             }
             
-            estudiantes.forEach(estudiante => {
+            clientes.forEach(cliente => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${estudiante.id}</td>
-                    <td>${estudiante.nombre}</td>
-                    <td>${estudiante.edad}</td>
-                    <td>${estudiante.carrera}</td>
-                    <td>${estudiante.email}</td>
-                    <td>${estudiante.telefono || 'N/A'}</td>
+                    <td>${cliente.id}</td>
+                    <td>${cliente.nombre}</td>
+                    <td>${cliente.email}</td>
+                    <td>${cliente.telefono}</td>
+                    <td>${cliente.tipo}</td>
                     <td>
-                        <button class="btn-danger btn-eliminar" data-id="${estudiante.id}">Eliminar</button>
+                        <button class="btn-danger btn-eliminar" data-id="${cliente.id}">Eliminar</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -370,17 +359,17 @@
             document.querySelectorAll('.btn-eliminar').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
-                    estudiantes = estudiantes.filter(estudiante => estudiante.id !== id);
-                    localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
-                    renderEstudiantes();
-                    showAlert('Estudiante eliminado correctamente', 'success');
+                    clientes = clientes.filter(cliente => cliente.id !== id);
+                    localStorage.setItem('clientes', JSON.stringify(clientes));
+                    renderClientes();
+                    showAlert('Cliente eliminado correctamente', 'success');
                 });
             });
         }
 
         // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function() {
-            renderEstudiantes();
+            renderClientes();
         });
     </script>
 </body>

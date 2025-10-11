@@ -3,41 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenidos - Sistema de Gestión</title>
+    <title>Dashboard - Sistema de Inventarios</title>
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2980b9;
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
             --accent-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #3498db;
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
-            --success-color: #2ecc71;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
-            background-color: #f5f7fa;
-            color: var(--dark-color);
-            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+            padding: 20px;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
         }
         
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
         }
         
         .header-content {
@@ -47,564 +53,502 @@
         }
         
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
         
         .main-menu {
             display: flex;
             list-style: none;
-        }
-        
-        .main-menu li {
-            margin-left: 1.5rem;
+            gap: 10px;
         }
         
         .main-menu a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 5px 15px;
             border-radius: 4px;
             transition: background-color 0.3s;
+            font-size: 0.9rem;
         }
         
         .main-menu a:hover, .main-menu a.active {
             background-color: rgba(255, 255, 255, 0.2);
         }
         
-        main {
-            padding: 2rem 0;
-            min-height: calc(100vh - 140px);
+        .dashboard-header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
         }
         
-        .section-title {
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-color);
+        .dashboard-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .dashboard-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card.products {
+            border-left-color: var(--primary-color);
+        }
+        
+        .stat-card.sales {
+            border-left-color: var(--warning-color);
+        }
+        
+        .stat-card.clients {
+            border-left-color: var(--info-color);
+        }
+        
+        .stat-card.suppliers {
+            border-left-color: var(--accent-color);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .quick-actions {
+            margin-bottom: 30px;
+        }
+        
+        .quick-actions h2 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .action-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .action-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .action-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .recent-activity {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .recent-activity h2 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .activity-list {
+            list-style: none;
+        }
+        
+        .activity-item {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-text {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .activity-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .system-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #666;
+        }
+        
+        .info-value {
+            font-weight: 600;
             color: var(--dark-color);
         }
         
-        .content-section {
-            display: none;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .content-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        .btn-success {
-            background-color: var(--success-color);
-        }
-        
-        .btn-success:hover {
-            background-color: #27ae60;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-        }
-        
-        .data-table th, .data-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .data-table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-        }
-        
-        .data-table tr:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .alert {
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 1rem;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-        
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        
-        .alert-error {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        
         footer {
-            background-color: var(--dark-color);
-            color: white;
             text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
-        }
-        
-        .card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-        
-        .welcome-message {
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .welcome-message h2 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .welcome-message p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .feature {
-            text-align: center;
-            padding: 1.5rem;
-        }
-        
-        .feature i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .feature h3 {
-            margin-bottom: 0.5rem;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            font-size: 0.9rem;
         }
         
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 text-align: center;
+                gap: 10px;
             }
             
             .main-menu {
-                margin-top: 1rem;
-                flex-wrap: wrap;
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
-            .main-menu li {
-                margin: 0.5rem;
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
+    <div class="container">
+        <header>
             <div class="header-content">
-                <div class="logo">Sistema de Gestión</div>
+                <div class="logo">📊 SistemaInventarios</div>
                 <ul class="main-menu">
-                    <li><a href="/" class="menu-link">Inicio</a></li>
-                    <li><a href="/bienvenidos" class="menu-link active">Bienvenidos</a></li>
-                    <li><a href="/saludos" class="menu-link">Saludos</a></li>
-                    <li><a href="/estudiantes" class="menu-link">Estudiantes</a></li>
-                    <li><a href="/proveedor" class="menu-link">Proveedor</a></li>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/bienvenidos" class="active">Dashboard</a></li>
+                    <li><a href="/productos">Productos</a></li>
+                    <li><a href="/ventas">Ventas</a></li>
+                    <li><a href="/cliente">Cliente</a></li>
+                    <li><a href="/proveedor">Proveedor</a></li>
                 </ul>
             </div>
-        </div>
-    </header>
-    
-    <main>
-        <div class="container">
-            <!-- Sección de Bienvenida -->
-            <section id="welcome" class="content-section active">
-                <div class="welcome-message">
-                    <h2>Bienvenido al Sistema de Gestión</h2>
-                    <p>Este sistema le permite gestionar saludos, mensajes de bienvenida, información de estudiantes y datos de proveedores de manera eficiente.</p>
-                    <p>Utilice el menú superior para navegar entre las diferentes secciones.</p>
+        </header>
+        
+        <main>
+            <section class="dashboard-header">
+                <h1>Dashboard del Sistema</h1>
+                <p>Resumen general y estadísticas de tu inventario</p>
+            </section>
+            
+            <div class="stats-grid">
+                <div class="stat-card products">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-number" id="total-productos">0</div>
+                    <div class="stat-label">Productos en Inventario</div>
+                </div>
+                
+                <div class="stat-card sales">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-number" id="total-ventas">0</div>
+                    <div class="stat-label">Ventas del Mes</div>
+                </div>
+                
+                <div class="stat-card clients">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-number" id="total-clientes">0</div>
+                    <div class="stat-label">Clientes Registrados</div>
+                </div>
+                
+                <div class="stat-card suppliers">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-number" id="total-proveedores">0</div>
+                    <div class="stat-label">Proveedores Activos</div>
+                </div>
+            </div>
+            
+            <section class="quick-actions">
+                <h2>Acciones Rápidas</h2>
+                <div class="actions-grid">
+                    <a href="/productos" class="action-card">
+                        <div class="action-icon">➕</div>
+                        <h3>Agregar Producto</h3>
+                        <p>Registrar nuevo producto en inventario</p>
+                    </a>
                     
-                    <div class="features">
-                        <div class="feature">
-                            <i>👋</i>
-                            <h3>Saludos</h3>
-                            <p>Gestiona diferentes tipos de saludos personalizados</p>
-                        </div>
-                        <div class="feature">
-                            <i>🚪</i>
-                            <h3>Bienvenidos</h3>
-                            <p>Crea y almacena mensajes de bienvenida</p>
-                        </div>
-                        <div class="feature">
-                            <i>👨‍🎓</i>
-                            <h3>Estudiantes</h3>
-                            <p>Administra la información de los estudiantes</p>
-                        </div>
-                        <div class="feature">
-                            <i>🏢</i>
-                            <h3>Proveedor</h3>
-                            <p>Gestiona los datos de los proveedores</p>
-                        </div>
-                    </div>
+                    <a href="/ventas" class="action-card">
+                        <div class="action-icon">💸</div>
+                        <h3>Nueva Venta</h3>
+                        <p>Registrar una nueva venta</p>
+                    </a>
+                    
+                    <a href="/cliente" class="action-card">
+                        <div class="action-icon">👤</div>
+                        <h3>Agregar Cliente</h3>
+                        <p>Registrar nuevo cliente</p>
+                    </a>
+                    
+                    <a href="/proveedor" class="action-card">
+                        <div class="action-icon">🏭</div>
+                        <h3>Agregar Proveedor</h3>
+                        <p>Registrar nuevo proveedor</p>
+                    </a>
                 </div>
             </section>
-        </div>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <p>Sistema de Gestión &copy; 2023 - Desarrollado con Laravel y Laragon</p>
-        </div>
-    </footer>
+            
+            <section class="recent-activity">
+                <h2>Actividad Reciente</h2>
+                <ul class="activity-list" id="activity-list">
+                    <!-- La actividad se cargará dinámicamente -->
+                </ul>
+            </section>
+            
+            <div class="system-info">
+                <div class="info-card">
+                    <h3>Estadísticas de Inventario</h3>
+                    <div class="info-item">
+                        <span class="info-label">Producto con más stock:</span>
+                        <span class="info-value" id="producto-max-stock">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Producto con menos stock:</span>
+                        <span class="info-value" id="producto-min-stock">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Valor total inventario:</span>
+                        <span class="info-value" id="valor-total-inventario">$0</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Información del Sistema</h3>
+                    <div class="info-item">
+                        <span class="info-label">Versión:</span>
+                        <span class="info-value">1.0.0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Última actualización:</span>
+                        <span class="info-value" id="ultima-actualizacion">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Estado:</span>
+                        <span class="info-value" style="color: var(--primary-color);">● Activo</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Sistema de Inventarios &copy; 2023 - Panel de Control</p>
+        </footer>
+    </div>
 
     <script>
-        // Navegación entre secciones
-        document.querySelectorAll('.menu-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
+        // Función para actualizar estadísticas
+        function updateDashboard() {
+            // Obtener datos de localStorage
+            const productos = JSON.parse(localStorage.getItem('productos')) || [];
+            const ventas = JSON.parse(localStorage.getItem('ventas')) || [];
+            const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+            const proveedores = JSON.parse(localStorage.getItem('proveedores')) || [];
+            
+            // Actualizar contadores principales
+            document.getElementById('total-productos').textContent = productos.length;
+            document.getElementById('total-ventas').textContent = ventas.length;
+            document.getElementById('total-clientes').textContent = clientes.length;
+            document.getElementById('total-proveedores').textContent = proveedores.length;
+            
+            // Calcular estadísticas de inventario
+            if (productos.length > 0) {
+                const productoMaxStock = productos.reduce((max, producto) => 
+                    producto.stock > max.stock ? producto : max
+                );
+                const productoMinStock = productos.reduce((min, producto) => 
+                    producto.stock < min.stock ? producto : min
+                );
+                const valorTotal = productos.reduce((total, producto) => 
+                    total + (producto.precio * producto.stock), 0
+                );
                 
-                // Remover clase activa de todos los enlaces
-                document.querySelectorAll('.menu-link').forEach(item => {
-                    item.classList.remove('active');
+                document.getElementById('producto-max-stock').textContent = `${productoMaxStock.nombre} (${productoMaxStock.stock})`;
+                document.getElementById('producto-min-stock').textContent = `${productoMinStock.nombre} (${productoMinStock.stock})`;
+                document.getElementById('valor-total-inventario').textContent = `$${valorTotal.toFixed(2)}`;
+            }
+            
+            // Actualizar actividad reciente
+            updateRecentActivity(productos, ventas, clientes);
+            
+            // Actualizar última actualización
+            document.getElementById('ultima-actualizacion').textContent = new Date().toLocaleString();
+        }
+        
+        // Función para actualizar actividad reciente
+        function updateRecentActivity(productos, ventas, clientes) {
+            const activityList = document.getElementById('activity-list');
+            activityList.innerHTML = '';
+            
+            // Crear actividades basadas en los datos
+            const activities = [];
+            
+            // Actividades de productos (últimos 3)
+            productos.slice(-3).forEach(producto => {
+                activities.push({
+                    type: 'product',
+                    text: `Producto agregado: ${producto.nombre}`,
+                    time: producto.fechaRegistro,
+                    icon: '📦'
                 });
-                
-                // Agregar clase activa al enlace clickeado
-                this.classList.add('active');
-                
-                // Redirigir a la página correspondiente
-                const href = this.getAttribute('href');
-                window.location.href = href;
             });
-        });
-
-        // Simulación de base de datos (en un caso real, esto se conectaría a un backend Laravel)
-        let saludos = JSON.parse(localStorage.getItem('saludos')) || [];
-        let bienvenidos = JSON.parse(localStorage.getItem('bienvenidos')) || [];
-        let estudiantes = JSON.parse(localStorage.getItem('estudiantes')) || [];
-        let proveedores = JSON.parse(localStorage.getItem('proveedores')) || [];
-
-        // Función para mostrar alertas
-        function showAlert(message, type) {
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.textContent = message;
             
-            document.querySelector('main .container').insertBefore(alert, document.querySelector('.content-section.active'));
-            
-            setTimeout(() => {
-                alert.remove();
-            }, 5000);
-        }
-
-        // Funcionalidad para Saludos
-        if(document.getElementById('saludo-form')) {
-            document.getElementById('saludo-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const tipo = document.getElementById('tipo-saludo').value;
-                const mensaje = document.getElementById('mensaje-saludo').value;
-                const idioma = document.getElementById('idioma-saludo').value;
-                
-                const nuevoSaludo = {
-                    id: Date.now(),
-                    tipo: tipo,
-                    mensaje: mensaje,
-                    idioma: idioma
-                };
-                
-                saludos.push(nuevoSaludo);
-                localStorage.setItem('saludos', JSON.stringify(saludos));
-                
-                document.getElementById('saludo-form').reset();
-                showAlert('Saludo guardado correctamente', 'success');
-                if(typeof renderSaludos === 'function') renderSaludos();
+            // Actividades de ventas (últimas 3)
+            ventas.slice(-3).forEach(venta => {
+                activities.push({
+                    type: 'sale',
+                    text: `Venta registrada: ${venta.productoNombre} - $${venta.total}`,
+                    time: venta.fecha,
+                    icon: '💰'
+                });
             });
-        }
-
-        function renderSaludos() {
-            const tbody = document.getElementById('saludos-list');
-            if(!tbody) return;
             
-            tbody.innerHTML = '';
+            // Actividades de clientes (últimos 3)
+            clientes.slice(-3).forEach(cliente => {
+                activities.push({
+                    type: 'client',
+                    text: `Cliente registrado: ${cliente.nombre}`,
+                    time: cliente.fechaRegistro,
+                    icon: '👤'
+                });
+            });
             
-            saludos.forEach(saludo => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${saludo.id}</td>
-                    <td>${saludo.tipo}</td>
-                    <td>${saludo.mensaje}</td>
-                    <td>${saludo.idioma}</td>
-                    <td>
-                        <button class="btn-editar" data-id="${saludo.id}">Editar</button>
-                        <button class="btn-eliminar" data-id="${saludo.id}">Eliminar</button>
-                    </td>
+            // Ordenar actividades por tiempo (más recientes primero)
+            activities.sort((a, b) => new Date(b.time) - new Date(a.time));
+            
+            // Mostrar máximo 6 actividades
+            const recentActivities = activities.slice(0, 6);
+            
+            if (recentActivities.length === 0) {
+                activityList.innerHTML = '<div class="activity-item"><div class="activity-content"><div class="activity-text">No hay actividad reciente</div></div></div>';
+                return;
+            }
+            
+            recentActivities.forEach(activity => {
+                const activityItem = document.createElement('li');
+                activityItem.className = 'activity-item';
+                activityItem.innerHTML = `
+                    <div class="activity-icon">${activity.icon}</div>
+                    <div class="activity-content">
+                        <div class="activity-text">${activity.text}</div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
                 `;
-                tbody.appendChild(tr);
-            });
-            
-            // Agregar event listeners para los botones de eliminar
-            document.querySelectorAll('.btn-eliminar').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    saludos = saludos.filter(saludo => saludo.id !== id);
-                    localStorage.setItem('saludos', JSON.stringify(saludos));
-                    renderSaludos();
-                    showAlert('Saludo eliminado correctamente', 'success');
-                });
+                activityList.appendChild(activityItem);
             });
         }
-
-        // Funcionalidad para Bienvenidos
-        if(document.getElementById('bienvenido-form')) {
-            document.getElementById('bienvenido-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const titulo = document.getElementById('titulo-bienvenida').value;
-                const mensaje = document.getElementById('mensaje-bienvenida').value;
-                const destinatario = document.getElementById('destinatario-bienvenida').value;
-                
-                const nuevoBienvenido = {
-                    id: Date.now(),
-                    titulo: titulo,
-                    mensaje: mensaje,
-                    destinatario: destinatario
-                };
-                
-                bienvenidos.push(nuevoBienvenido);
-                localStorage.setItem('bienvenidos', JSON.stringify(bienvenidos));
-                
-                document.getElementById('bienvenido-form').reset();
-                showAlert('Mensaje de bienvenida guardado correctamente', 'success');
-                if(typeof renderBienvenidos === 'function') renderBienvenidos();
-            });
-        }
-
-        function renderBienvenidos() {
-            const tbody = document.getElementById('bienvenidos-list');
-            if(!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            bienvenidos.forEach(bienvenido => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${bienvenido.id}</td>
-                    <td>${bienvenido.titulo}</td>
-                    <td>${bienvenido.mensaje}</td>
-                    <td>${bienvenido.destinatario}</td>
-                    <td>
-                        <button class="btn-editar" data-id="${bienvenido.id}">Editar</button>
-                        <button class="btn-eliminar" data-id="${bienvenido.id}">Eliminar</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-            
-            // Agregar event listeners para los botones de eliminar
-            document.querySelectorAll('.btn-eliminar').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    bienvenidos = bienvenidos.filter(bienvenido => bienvenido.id !== id);
-                    localStorage.setItem('bienvenidos', JSON.stringify(bienvenidos));
-                    renderBienvenidos();
-                    showAlert('Mensaje de bienvenida eliminado correctamente', 'success');
-                });
-            });
-        }
-
-        // Funcionalidad para Estudiantes
-        if(document.getElementById('estudiante-form')) {
-            document.getElementById('estudiante-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const nombre = document.getElementById('nombre-estudiante').value;
-                const edad = document.getElementById('edad-estudiante').value;
-                const carrera = document.getElementById('carrera-estudiante').value;
-                const email = document.getElementById('email-estudiante').value;
-                
-                const nuevoEstudiante = {
-                    id: Date.now(),
-                    nombre: nombre,
-                    edad: edad,
-                    carrera: carrera,
-                    email: email
-                };
-                
-                estudiantes.push(nuevoEstudiante);
-                localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
-                
-                document.getElementById('estudiante-form').reset();
-                showAlert('Estudiante registrado correctamente', 'success');
-                if(typeof renderEstudiantes === 'function') renderEstudiantes();
-            });
-        }
-
-        function renderEstudiantes() {
-            const tbody = document.getElementById('estudiantes-list');
-            if(!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            estudiantes.forEach(estudiante => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${estudiante.id}</td>
-                    <td>${estudiante.nombre}</td>
-                    <td>${estudiante.edad}</td>
-                    <td>${estudiante.carrera}</td>
-                    <td>${estudiante.email}</td>
-                    <td>
-                        <button class="btn-editar" data-id="${estudiante.id}">Editar</button>
-                        <button class="btn-eliminar" data-id="${estudiante.id}">Eliminar</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-            
-            // Agregar event listeners para los botones de eliminar
-            document.querySelectorAll('.btn-eliminar').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    estudiantes = estudiantes.filter(estudiante => estudiante.id !== id);
-                    localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
-                    renderEstudiantes();
-                    showAlert('Estudiante eliminado correctamente', 'success');
-                });
-            });
-        }
-
-        // Funcionalidad para Proveedores
-        if(document.getElementById('proveedor-form')) {
-            document.getElementById('proveedor-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const nombre = document.getElementById('nombre-proveedor').value;
-                const contacto = document.getElementById('contacto-proveedor').value;
-                const telefono = document.getElementById('telefono-proveedor').value;
-                const email = document.getElementById('email-proveedor').value;
-                const producto = document.getElementById('producto-proveedor').value;
-                
-                const nuevoProveedor = {
-                    id: Date.now(),
-                    nombre: nombre,
-                    contacto: contacto,
-                    telefono: telefono,
-                    email: email,
-                    producto: producto
-                };
-                
-                proveedores.push(nuevoProveedor);
-                localStorage.setItem('proveedores', JSON.stringify(proveedores));
-                
-                document.getElementById('proveedor-form').reset();
-                showAlert('Proveedor registrado correctamente', 'success');
-                if(typeof renderProveedores === 'function') renderProveedores();
-            });
-        }
-
-        function renderProveedores() {
-            const tbody = document.getElementById('proveedores-list');
-            if(!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            proveedores.forEach(proveedor => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${proveedor.id}</td>
-                    <td>${proveedor.nombre}</td>
-                    <td>${proveedor.contacto}</td>
-                    <td>${proveedor.telefono}</td>
-                    <td>${proveedor.email}</td>
-                    <td>${proveedor.producto}</td>
-                    <td>
-                        <button class="btn-editar" data-id="${proveedor.id}">Editar</button>
-                        <button class="btn-eliminar" data-id="${proveedor.id}">Eliminar</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-            
-            // Agregar event listeners para los botones de eliminar
-            document.querySelectorAll('.btn-eliminar').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    proveedores = proveedores.filter(proveedor => proveedor.id !== id);
-                    localStorage.setItem('proveedores', JSON.stringify(proveedores));
-                    renderProveedores();
-                    showAlert('Proveedor eliminado correctamente', 'success');
-                });
-            });
-        }
-
-        // Inicializar la aplicación
+        
+        // Actualizar dashboard cada 3 segundos
         document.addEventListener('DOMContentLoaded', function() {
-            // Solo ejecutar las funciones si los elementos existen en la página actual
-            if(document.getElementById('saludos-list')) renderSaludos();
-            if(document.getElementById('bienvenidos-list')) renderBienvenidos();
-            if(document.getElementById('estudiantes-list')) renderEstudiantes();
-            if(document.getElementById('proveedores-list')) renderProveedores();
+            updateDashboard();
+            setInterval(updateDashboard, 3000);
         });
     </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Proveedores - Sistema de Inventarios</title>
+    <title>Control de Ventas - Sistema de Inventarios</title>
     <style>
         :root {
             --primary-color: #2ecc71;
@@ -11,6 +11,7 @@
             --accent-color: #e74c3c;
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
+            --warning-color: #f39c12;
         }
         
         * {
@@ -133,6 +134,14 @@
             background-color: var(--primary-color);
         }
         
+        .btn-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e67e22;
+        }
+        
         .btn-danger {
             background-color: var(--accent-color);
         }
@@ -205,14 +214,14 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">🏢 SistemaInventarios</div>
+                <div class="logo">💰 SistemaInventarios</div>
                 <ul class="main-menu">
                     <li><a href="/">Inicio</a></li>
                     <li><a href="/bienvenidos">Bienvenidos</a></li>
                     <li><a href="/productos">Productos</a></li>
-                    <li><a href="/ventas">Ventas</a></li>
+                    <li><a href="/ventas" class="active">Ventas</a></li>
                     <li><a href="/cliente">Cliente</a></li>
-                    <li><a href="/proveedor" class="active">Proveedor</a></li>
+                    <li><a href="/proveedor">Proveedor</a></li>
                 </ul>
             </div>
         </div>
@@ -220,60 +229,66 @@
     
     <main>
         <div class="container">
-            <h2 class="section-title">Gestión de Proveedores</h2>
+            <h2 class="section-title">Control de Ventas</h2>
             
             <div class="card">
-                <h3>Registrar Proveedor</h3>
-                <form id="proveedor-form">
+                <h3>Registrar Nueva Venta</h3>
+                <form id="venta-form">
                     <div class="form-group">
-                        <label for="nombre-proveedor">Nombre de la Empresa</label>
-                        <input type="text" id="nombre-proveedor" required placeholder="Nombre de la empresa proveedora">
+                        <label for="cliente-venta">Cliente</label>
+                        <select id="cliente-venta" required>
+                            <option value="">Seleccione cliente</option>
+                            <!-- Clientes se cargarán dinámicamente -->
+                        </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="contacto-proveedor">Persona de Contacto</label>
-                        <input type="text" id="contacto-proveedor" required placeholder="Nombre del contacto">
+                        <label for="producto-venta">Producto</label>
+                        <select id="producto-venta" required>
+                            <option value="">Seleccione producto</option>
+                            <!-- Productos se cargarán dinámicamente -->
+                        </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="telefono-proveedor">Teléfono</label>
-                        <input type="tel" id="telefono-proveedor" required placeholder="Número de teléfono">
+                        <label for="cantidad-venta">Cantidad</label>
+                        <input type="number" id="cantidad-venta" required min="1" placeholder="Cantidad vendida">
                     </div>
                     
                     <div class="form-group">
-                        <label for="email-proveedor">Email</label>
-                        <input type="email" id="email-proveedor" required placeholder="Correo electrónico">
+                        <label for="precio-venta">Precio Unitario</label>
+                        <input type="number" id="precio-venta" required min="0" step="0.01" placeholder="Precio unitario">
                     </div>
                     
                     <div class="form-group">
-                        <label for="producto-proveedor">Producto/Servicio</label>
-                        <input type="text" id="producto-proveedor" required placeholder="Producto o servicio que ofrece">
+                        <label for="total-venta">Total</label>
+                        <input type="number" id="total-venta" readonly placeholder="Se calculará automáticamente">
                     </div>
                     
                     <div class="form-group">
-                        <label for="direccion-proveedor">Dirección</label>
-                        <textarea id="direccion-proveedor" rows="3" placeholder="Dirección de la empresa"></textarea>
+                        <label for="fecha-venta">Fecha de Venta</label>
+                        <input type="date" id="fecha-venta" required>
                     </div>
                     
-                    <button type="submit" class="btn-success">Registrar Proveedor</button>
+                    <button type="submit" class="btn-success">Registrar Venta</button>
                 </form>
             </div>
             
             <div class="card">
-                <h3>Proveedores Registrados</h3>
+                <h3>Ventas Registradas</h3>
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Empresa</th>
-                            <th>Contacto</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Producto/Servicio</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="proveedores-list">
+                    <tbody id="ventas-list">
                         <!-- Los datos se cargarán dinámicamente -->
                     </tbody>
                 </table>
@@ -283,13 +298,13 @@
     
     <footer>
         <div class="container">
-            <p>Sistema de Inventarios &copy; 2023 - Gestión de Proveedores</p>
+            <p>Sistema de Inventarios &copy; 2023 - Control de Ventas</p>
         </div>
     </footer>
 
     <script>
-        // Datos de proveedores
-        let proveedores = JSON.parse(localStorage.getItem('proveedores')) || [];
+        // Datos de ventas
+        let ventas = JSON.parse(localStorage.getItem('ventas')) || [];
 
         // Función para mostrar alertas
         function showAlert(message, type) {
@@ -304,56 +319,112 @@
             }, 5000);
         }
 
-        // Funcionalidad para Proveedores
-        document.getElementById('proveedor-form').addEventListener('submit', function(e) {
+        // Cargar clientes y productos en los select
+        function cargarSelects() {
+            const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+            const productos = JSON.parse(localStorage.getItem('productos')) || [];
+            
+            const selectCliente = document.getElementById('cliente-venta');
+            const selectProducto = document.getElementById('producto-venta');
+            
+            // Limpiar selects
+            selectCliente.innerHTML = '<option value="">Seleccione cliente</option>';
+            selectProducto.innerHTML = '<option value="">Seleccione producto</option>';
+            
+            // Cargar clientes
+            clientes.forEach(cliente => {
+                const option = document.createElement('option');
+                option.value = cliente.id;
+                option.textContent = cliente.nombre;
+                selectCliente.appendChild(option);
+            });
+            
+            // Cargar productos
+            productos.forEach(producto => {
+                const option = document.createElement('option');
+                option.value = producto.id;
+                option.textContent = `${producto.nombre} - $${producto.precio}`;
+                option.setAttribute('data-precio', producto.precio);
+                selectProducto.appendChild(option);
+            });
+        }
+
+        // Calcular total automáticamente
+        document.getElementById('cantidad-venta').addEventListener('input', calcularTotal);
+        document.getElementById('precio-venta').addEventListener('input', calcularTotal);
+        document.getElementById('producto-venta').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption.value) {
+                document.getElementById('precio-venta').value = selectedOption.getAttribute('data-precio');
+                calcularTotal();
+            }
+        });
+
+        function calcularTotal() {
+            const cantidad = parseInt(document.getElementById('cantidad-venta').value) || 0;
+            const precio = parseFloat(document.getElementById('precio-venta').value) || 0;
+            const total = cantidad * precio;
+            document.getElementById('total-venta').value = total.toFixed(2);
+        }
+
+        // Funcionalidad para Ventas
+        document.getElementById('venta-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const nombre = document.getElementById('nombre-proveedor').value;
-            const contacto = document.getElementById('contacto-proveedor').value;
-            const telefono = document.getElementById('telefono-proveedor').value;
-            const email = document.getElementById('email-proveedor').value;
-            const producto = document.getElementById('producto-proveedor').value;
-            const direccion = document.getElementById('direccion-proveedor').value;
+            const clienteId = document.getElementById('cliente-venta').value;
+            const productoId = document.getElementById('producto-venta').value;
+            const cantidad = parseInt(document.getElementById('cantidad-venta').value);
+            const precio = parseFloat(document.getElementById('precio-venta').value);
+            const total = parseFloat(document.getElementById('total-venta').value);
+            const fecha = document.getElementById('fecha-venta').value;
             
-            const nuevoProveedor = {
+            const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+            const productos = JSON.parse(localStorage.getItem('productos')) || [];
+            
+            const cliente = clientes.find(c => c.id == clienteId);
+            const producto = productos.find(p => p.id == productoId);
+            
+            const nuevaVenta = {
                 id: Date.now(),
-                nombre: nombre,
-                contacto: contacto,
-                telefono: telefono,
-                email: email,
-                producto: producto,
-                direccion: direccion,
+                clienteId: clienteId,
+                clienteNombre: cliente ? cliente.nombre : 'Cliente no encontrado',
+                productoId: productoId,
+                productoNombre: producto ? producto.nombre : 'Producto no encontrado',
+                cantidad: cantidad,
+                precioUnitario: precio,
+                total: total,
+                fecha: fecha,
                 fechaRegistro: new Date().toLocaleDateString()
             };
             
-            proveedores.push(nuevoProveedor);
-            localStorage.setItem('proveedores', JSON.stringify(proveedores));
+            ventas.push(nuevaVenta);
+            localStorage.setItem('ventas', JSON.stringify(ventas));
             
-            document.getElementById('proveedor-form').reset();
-            showAlert('Proveedor registrado correctamente', 'success');
-            renderProveedores();
+            document.getElementById('venta-form').reset();
+            showAlert('Venta registrada correctamente', 'success');
+            renderVentas();
         });
 
-        function renderProveedores() {
-            const tbody = document.getElementById('proveedores-list');
+        function renderVentas() {
+            const tbody = document.getElementById('ventas-list');
             tbody.innerHTML = '';
             
-            if (proveedores.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hay proveedores registrados</td></tr>';
+            if (ventas.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No hay ventas registradas</td></tr>';
                 return;
             }
             
-            proveedores.forEach(proveedor => {
+            ventas.forEach(venta => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${proveedor.id}</td>
-                    <td>${proveedor.nombre}</td>
-                    <td>${proveedor.contacto}</td>
-                    <td>${proveedor.telefono}</td>
-                    <td>${proveedor.email}</td>
-                    <td>${proveedor.producto}</td>
+                    <td>${venta.id}</td>
+                    <td>${venta.clienteNombre}</td>
+                    <td>${venta.productoNombre}</td>
+                    <td>${venta.cantidad}</td>
+                    <td>$${venta.total.toFixed(2)}</td>
+                    <td>${venta.fecha}</td>
                     <td>
-                        <button class="btn-danger btn-eliminar" data-id="${proveedor.id}">Eliminar</button>
+                        <button class="btn-danger btn-eliminar" data-id="${venta.id}">Eliminar</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -363,17 +434,20 @@
             document.querySelectorAll('.btn-eliminar').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
-                    proveedores = proveedores.filter(proveedor => proveedor.id !== id);
-                    localStorage.setItem('proveedores', JSON.stringify(proveedores));
-                    renderProveedores();
-                    showAlert('Proveedor eliminado correctamente', 'success');
+                    ventas = ventas.filter(venta => venta.id !== id);
+                    localStorage.setItem('ventas', JSON.stringify(ventas));
+                    renderVentas();
+                    showAlert('Venta eliminada correctamente', 'success');
                 });
             });
         }
 
         // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function() {
-            renderProveedores();
+            cargarSelects();
+            renderVentas();
+            // Establecer fecha actual por defecto
+            document.getElementById('fecha-venta').valueAsDate = new Date();
         });
     </script>
 </body>
