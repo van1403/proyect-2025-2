@@ -288,12 +288,11 @@
         </main>
         
         <footer>
-            <p>Sistema de Inventarios &copy; 2023 - Desarrollado con Laravel y Laragon</p>
+            <p>Sistema de Inventarios &copy; 2025 - Desarrollado por Vanesa Sabido</p>
         </footer>
     </div>
 
     <script>
-        // Actualizar contadores desde localStorage
         function updateCounters() {
             const productos = JSON.parse(localStorage.getItem('productos')) || [];
             const ventas = JSON.parse(localStorage.getItem('ventas')) || [];
@@ -304,10 +303,8 @@
             document.getElementById('ventas-count').textContent = ventas.length;
             document.getElementById('clientes-count').textContent = clientes.length;
             document.getElementById('proveedores-count').textContent = proveedores.length;
-        }
-        
-        // Actualizar contadores al cargar y cada 3 segundos
-        document.addEventListener('DOMContentLoaded', function() {
+        }    
+            document.addEventListener('DOMContentLoaded', function() {
             updateCounters();
             setInterval(updateCounters, 3000);
         });
