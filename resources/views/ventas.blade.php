@@ -25,18 +25,23 @@
             background-color: #f5f7fa;
             color: var(--dark-color);
             line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0 25px;
+            flex: 1;
         }
         
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
@@ -47,7 +52,7 @@
         }
         
         .logo {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: bold;
         }
         
@@ -57,15 +62,16 @@
         }
         
         .main-menu li {
-            margin-left: 1.5rem;
+            margin-left: 2rem;
         }
         
         .main-menu a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
             transition: background-color 0.3s;
+            font-size: 1.2rem;
         }
         
         .main-menu a:hover, .main-menu a.active {
@@ -73,56 +79,62 @@
         }
         
         main {
-            padding: 2rem 0;
-            min-height: calc(100vh - 140px);
+            padding: 2.5rem 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .section-title {
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
             color: var(--dark-color);
+            font-size: 2.5rem;
         }
         
         .card {
             background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2.5rem;
+            flex: 1;
         }
         
         .card h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--primary-color);
+            font-size: 1.8rem;
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
+            font-size: 1.3rem;
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 1rem;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
+            border-radius: 6px;
+            font-size: 1.2rem;
         }
         
         button {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
+            padding: 1rem 2rem;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.3rem;
             transition: background-color 0.3s;
         }
         
@@ -154,10 +166,11 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 1.5rem;
+            font-size: 1.2rem;
         }
         
         .data-table th, .data-table td {
-            padding: 0.75rem;
+            padding: 1.2rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -165,6 +178,7 @@
         .data-table th {
             background-color: #f8f9fa;
             font-weight: 600;
+            font-size: 1.3rem;
         }
         
         .data-table tr:hover {
@@ -172,10 +186,11 @@
         }
         
         .alert {
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 1rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
             border: 1px solid transparent;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 1.2rem;
         }
         
         .alert-success {
@@ -188,8 +203,38 @@
             background-color: var(--dark-color);
             color: white;
             text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
+            padding: 1.5rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        .total-display {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .total-display h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-size: 1.4rem;
+        }
+        
+        .total-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--warning-color);
         }
         
         @media (max-width: 768px) {
@@ -199,13 +244,34 @@
             }
             
             .main-menu {
-                margin-top: 1rem;
+                margin-top: 1.5rem;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             
             .main-menu li {
-                margin: 0.5rem;
+                margin: 0.75rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .main-menu a {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -234,40 +300,42 @@
             <div class="card">
                 <h3>Registrar Nueva Venta</h3>
                 <form id="venta-form">
-                    <div class="form-group">
-                        <label for="cliente-venta">Cliente</label>
-                        <select id="cliente-venta" required>
-                            <option value="">Seleccione cliente</option>
-                            <!-- Clientes se cargarán dinámicamente -->
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cliente-venta">Cliente</label>
+                            <select id="cliente-venta" required>
+                                <option value="">Seleccione cliente</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="producto-venta">Producto</label>
+                            <select id="producto-venta" required>
+                                <option value="">Seleccione producto</option>
+                            </select>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="producto-venta">Producto</label>
-                        <select id="producto-venta" required>
-                            <option value="">Seleccione producto</option>
-                            <!-- Productos se cargarán dinámicamente -->
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="cantidad-venta">Cantidad</label>
-                        <input type="number" id="cantidad-venta" required min="1" placeholder="Cantidad vendida">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="precio-venta">Precio Unitario</label>
-                        <input type="number" id="precio-venta" required min="0" step="0.01" placeholder="Precio unitario">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="total-venta">Total</label>
-                        <input type="number" id="total-venta" readonly placeholder="Se calculará automáticamente">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cantidad-venta">Cantidad</label>
+                            <input type="number" id="cantidad-venta" required min="1" placeholder="Cantidad vendida">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="precio-venta">Precio Unitario</label>
+                            <input type="number" id="precio-venta" required min="0" step="0.01" placeholder="Precio unitario">
+                        </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="fecha-venta">Fecha de Venta</label>
                         <input type="date" id="fecha-venta" required>
+                    </div>
+                    
+                    <div class="total-display">
+                        <h4>Total de la Venta</h4>
+                        <div class="total-amount" id="total-display">$0.00</div>
                     </div>
                     
                     <button type="submit" class="btn-success">Registrar Venta</button>
@@ -276,37 +344,36 @@
             
             <div class="card">
                 <h3>Ventas Registradas</h3>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
-                            <th>Fecha</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ventas-list">
-                        <!-- Los datos se cargarán dinámicamente -->
-                    </tbody>
-                </table>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ventas-list">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
     
     <footer>
         <div class="container">
-            <p>Sistema de Inventarios &copy; 2023 - Control de Ventas</p>
+            <p>Sistema de Inventarios &copy; 2025 - Control de Ventas</p>
         </div>
     </footer>
 
     <script>
-        // Datos de ventas
         let ventas = JSON.parse(localStorage.getItem('ventas')) || [];
 
-        // Función para mostrar alertas
         function showAlert(message, type) {
             const alert = document.createElement('div');
             alert.className = `alert alert-${type}`;
@@ -319,7 +386,6 @@
             }, 5000);
         }
 
-        // Cargar clientes y productos en los select
         function cargarSelects() {
             const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
             const productos = JSON.parse(localStorage.getItem('productos')) || [];
@@ -327,11 +393,9 @@
             const selectCliente = document.getElementById('cliente-venta');
             const selectProducto = document.getElementById('producto-venta');
             
-            // Limpiar selects
             selectCliente.innerHTML = '<option value="">Seleccione cliente</option>';
             selectProducto.innerHTML = '<option value="">Seleccione producto</option>';
             
-            // Cargar clientes
             clientes.forEach(cliente => {
                 const option = document.createElement('option');
                 option.value = cliente.id;
@@ -339,7 +403,6 @@
                 selectCliente.appendChild(option);
             });
             
-            // Cargar productos
             productos.forEach(producto => {
                 const option = document.createElement('option');
                 option.value = producto.id;
@@ -349,7 +412,6 @@
             });
         }
 
-        // Calcular total automáticamente
         document.getElementById('cantidad-venta').addEventListener('input', calcularTotal);
         document.getElementById('precio-venta').addEventListener('input', calcularTotal);
         document.getElementById('producto-venta').addEventListener('change', function() {
@@ -364,10 +426,9 @@
             const cantidad = parseInt(document.getElementById('cantidad-venta').value) || 0;
             const precio = parseFloat(document.getElementById('precio-venta').value) || 0;
             const total = cantidad * precio;
-            document.getElementById('total-venta').value = total.toFixed(2);
+            document.getElementById('total-display').textContent = `$${total.toFixed(2)}`;
         }
 
-        // Funcionalidad para Ventas
         document.getElementById('venta-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -375,7 +436,7 @@
             const productoId = document.getElementById('producto-venta').value;
             const cantidad = parseInt(document.getElementById('cantidad-venta').value);
             const precio = parseFloat(document.getElementById('precio-venta').value);
-            const total = parseFloat(document.getElementById('total-venta').value);
+            const total = parseFloat(document.getElementById('total-display').textContent.replace('$', ''));
             const fecha = document.getElementById('fecha-venta').value;
             
             const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
@@ -401,6 +462,7 @@
             localStorage.setItem('ventas', JSON.stringify(ventas));
             
             document.getElementById('venta-form').reset();
+            document.getElementById('total-display').textContent = '$0.00';
             showAlert('Venta registrada correctamente', 'success');
             renderVentas();
         });
@@ -430,7 +492,6 @@
                 tbody.appendChild(tr);
             });
             
-            // Agregar event listeners para los botones de eliminar
             document.querySelectorAll('.btn-eliminar').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
@@ -442,11 +503,9 @@
             });
         }
 
-        // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function() {
             cargarSelects();
             renderVentas();
-            // Establecer fecha actual por defecto
             document.getElementById('fecha-venta').valueAsDate = new Date();
         });
     </script>

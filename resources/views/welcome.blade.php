@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Inventarios - Inicio</title>
+    <title>Sistema de Inventarios</title>
     <style>
         :root {
             --primary-color: #2ecc71;
@@ -25,23 +25,29 @@
             background-color: #f8f9fa;
             color: #333;
             line-height: 1.5;
-            padding: 20px;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            margin: 0;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 0;
+            box-shadow: none;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
         
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 15px 20px;
-            border-radius: 8px 8px 0 0;
+            padding: 35px 20px;
+            border-radius: 0;
             margin: -20px -20px 20px -20px;
         }
         
@@ -52,7 +58,7 @@
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
         }
         
@@ -65,10 +71,10 @@
         .main-menu a {
             color: white;
             text-decoration: none;
-            padding: 5px 15px;
+            padding: 8px 18px;
             border-radius: 4px;
             transition: background-color 0.3s;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
         
         .main-menu a:hover, .main-menu a.active {
@@ -77,32 +83,34 @@
         
         .welcome-section {
             text-align: center;
-            padding: 20px 0;
+            padding: 30px 0;
             margin-bottom: 30px;
         }
         
         .welcome-section h1 {
             color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
         }
         
         .welcome-section p {
             color: #666;
-            margin-bottom: 20px;
-            max-width: 600px;
+            margin-bottom: 25px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            font-size: 1.3rem;
         }
         
         .cta-button {
             display: inline-block;
             background: var(--warning-color);
             color: white;
-            padding: 10px 25px;
+            padding: 12px 30px;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
+            font-size: 1.2rem;
             transition: background-color 0.3s;
         }
         
@@ -112,19 +120,23 @@
         
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
             margin-top: 30px;
+            flex-grow: 1;
         }
         
         .menu-card {
             background: white;
             border: 2px solid #e9ecef;
             border-radius: 8px;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             transition: all 0.3s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .menu-card:hover {
@@ -134,70 +146,71 @@
         }
         
         .menu-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
         }
         
         .menu-card h3 {
             color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
         
         .menu-card p {
             color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
         
         .menu-link {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
         
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
             margin-top: 30px;
-            padding: 20px;
+            padding: 25px;
             background: #f8f9fa;
             border-radius: 8px;
         }
         
         .stat-item {
             text-align: center;
-            padding: 15px;
+            padding: 20px;
         }
         
         .stat-number {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: var(--primary-color);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .stat-label {
             color: #666;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
         }
         
         footer {
             text-align: center;
             margin-top: 30px;
-            padding: 20px;
+            padding: 25px;
             color: #666;
             border-top: 1px solid #e9ecef;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
         
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 text-align: center;
-                gap: 10px;
+                gap: 15px;
             }
             
             .main-menu {
@@ -207,6 +220,14 @@
             
             .menu-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+            
+            .welcome-section p {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -304,7 +325,8 @@
             document.getElementById('clientes-count').textContent = clientes.length;
             document.getElementById('proveedores-count').textContent = proveedores.length;
         }    
-            document.addEventListener('DOMContentLoaded', function() {
+        
+        document.addEventListener('DOMContentLoaded', function() {
             updateCounters();
             setInterval(updateCounters, 3000);
         });
